@@ -1,19 +1,20 @@
 // src/main.tsx
 
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, type Root } from 'react-dom/client'; // Import 'Root' from react-dom/client
 // import React from 'react';
 import App from './App.tsx';
 import Modal from './components/Modal.tsx';
 
-import './index.css';
+import './App.css';
 
 class ReactModal extends HTMLElement {
-    private root: any;
+    // Change 'any' to 'Root' and add ' | null' since it's initially null
+    private root: Root | null = null;
 
     connectedCallback() {
         this.attachShadow({ mode: 'open' });
-        // Perbaiki: Gunakan non-null assertion untuk memastikan shadowRoot tidak null
+        // You can now safely assign the root
         this.root = createRoot(this.shadowRoot!);
 
         this.renderReactModal();
@@ -24,7 +25,6 @@ class ReactModal extends HTMLElement {
 
     renderReactModal() {
         const isOpen = this.hasAttribute('isOpen');
-        // Perbaiki: pastikan maxWidth memiliki tipe yang benar
         const maxWidth = this.getAttribute('maxWidth') as "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | null;
 
         const handleClose = () => {
@@ -32,15 +32,18 @@ class ReactModal extends HTMLElement {
             this.dispatchEvent(new CustomEvent('modal-close', { bubbles: true, composed: true }));
         };
 
-        this.root.render(
-            <Modal
-                isOpen={isOpen}
-                onClose={handleClose}
-                maxWidth={maxWidth || undefined}
-            >
-                <slot></slot>
-            </Modal>
-        );
+        // Add a check to ensure this.root is not null before rendering
+        if (this.root) {
+            this.root.render(
+                <Modal
+                    isOpen={isOpen}
+                    onClose={handleClose}
+                    maxWidth={maxWidth || undefined}
+                >
+                    <slot></slot>
+                </Modal>
+            );
+        }
     }
 }
 
