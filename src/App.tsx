@@ -1,27 +1,15 @@
 // src/App.tsx
 
-import { useState, useEffect, useRef } from 'react';
-
-// Impor jenis elemen kustom
-import './global.d.ts';
+import { useState } from 'react';
+import Modal from './components/Modal'; // Impor komponen Modal Anda
 
 function App() {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    // Perbaiki: Tentukan tipe data ref secara eksplisit
-    const modalRef = useRef<HTMLElement>(null);
 
-    useEffect(() => {
-        const modalElement = modalRef.current;
-        if (modalElement) {
-            const handleClose = () => {
-                setIsModalOpen(false);
-            };
-            modalElement.addEventListener('modal-close', handleClose as EventListener);
-            return () => {
-                modalElement.removeEventListener('modal-close', handleClose as EventListener);
-            }
-        }
-    }, []);
+    // Fungsi untuk menutup modal
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -33,17 +21,18 @@ function App() {
                 Open Modal
             </button>
 
-            {/* Gunakan elemen kustom */}
-            <my-modal
-                ref={modalRef}
+            {/* Gunakan komponen Modal Anda */}
+            <Modal
                 isOpen={isModalOpen}
+                onClose={closeModal}
                 maxWidth="xl"
             >
-                <div>
+                {/* Konten modal Anda di sini */}
+                <div onClick={(e) => e.stopPropagation()} className="p-6 bg-white rounded-lg shadow-lg">
                     <h2 className="text-2xl font-bold">Judul Modal</h2>
                     <p className="mt-2 text-gray-600">Konten modal</p>
                 </div>
-            </my-modal>
+            </Modal>
         </div>
     );
 }
