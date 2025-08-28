@@ -78,13 +78,13 @@ export default App;
 
 Use the `useState` hook to control the modal's visibility.
 
-| Property | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `children` | `ReactNode` | `undefined` | The content to be displayed inside the modal. |
-| `isOpen` | `boolean` | `false` | Controls the visibility of the modal. |
-| `onClose` | `() => void` | **(Required)** | A function called when the modal should be closed. |
-| `disableClickOutside` | `boolean` | `false` | If true, the modal will not close when clicking on the overlay. |
-| `maxWidth` | `'sm' \| 'md' \| ...` | `'xl'` | Sets the maximum width of the modal. |
+| Property | Type                                                                             | Default | Description |
+| :--- |:---------------------------------------------------------------------------------| :--- | :--- |
+| `children` | `ReactNode`                                                                      | `undefined` | The content to be displayed inside the modal. |
+| `isOpen` | `boolean`                                                                        | `false` | Controls the visibility of the modal. |
+| `onClose` | `() => void`                                                                     | **(Required)** | A function called when the modal should be closed. |
+| `disableClickOutside` | `boolean`                                                                        | `false` | If true, the modal will not close when clicking on the overlay. |
+| `maxWidth` | `'sm' \| 'md' \| 'lg' \|'xl' \|'2xl' \|'3xl' \|'4xl' \|'5xl' \|'6xl' \|'7xl' \|` | `'xl'` | Sets the maximum width of the modal. |
 
 
 
