@@ -19,7 +19,7 @@ Install the component using npm or yarn.
   yarn add react-tailwind-modal
 ```
 
-### Installation
+### How to Use
 
 Use the useState hook to control the modal's visibility.
 ```tsx
