@@ -25,7 +25,7 @@ Use the useState hook to control the modal's visibility.
 ```tsx
 // App.tsx
 import { useState } from 'react';
-import Modal from 'react-tailwind-modal';
+import Modal from '@alnthea/react-tailwind-modal';
 
 function App() {
     const [isModalOpen, setIsModalOpen] = useState(false);
