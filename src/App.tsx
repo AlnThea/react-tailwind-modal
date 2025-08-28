@@ -12,7 +12,8 @@ function App() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-500">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-slate-200">
+            <div className={'text-7xl mb-30'}>HELOO</div>
             <h1 className="text-3xl font-bold mb-6">Hello World</h1>
             <button
                 onClick={() => setIsModalOpen(true)} // Aksi ini yang memicu modal
@@ -25,10 +26,11 @@ function App() {
             <Modal
                 isOpen={isModalOpen}
                 onClose={closeModal}
-                maxWidth="xl"
+                disableClickOutside={true}
+                maxWidth="2xl"
             >
                 {/* Konten modal di sini */}
-                <div onClick={(e) => e.stopPropagation()} className="p-6 bg-white rounded-lg shadow-lg">
+                <div onClick={(e) => e.stopPropagation()} className="s">
                     <h2 className="text-2xl font-bold">Judul Modal</h2>
                     <p className="mt-2 text-gray-600">Konten modal</p>
                     <button

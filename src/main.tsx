@@ -38,7 +38,7 @@ class ReactModal extends HTMLElement {
                 <Modal
                     isOpen={isOpen}
                     onClose={handleClose}
-                    maxWidth={maxWidth || undefined}
+                    maxWidth={maxWidth || 'md'}
                 >
                     <slot></slot>
                 </Modal>
