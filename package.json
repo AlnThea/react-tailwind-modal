@@ -1,6 +1,6 @@
 {
   "name": "@alnthea/react-tailwind-modal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A fully animated and customizable modal component for React using Tailwind CSS v4.",
   "license": "MIT",
   "author": "AlnThea",
