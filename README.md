@@ -3,6 +3,9 @@
 A lightweight, customizable, and fully animated React modal component built with Tailwind CSS. This component is designed to provide a smooth and intuitive user experience with fluid transitions.
 Currently, two official plugins are available:
 
+<p align="center">
+  <img src="https://github.com/AlnThea/react-tailwind-modal/blob/master/public/img.png" width="400" alt="React Tailwind Modal Demo" />
+</p>
 ### Key Features
 
 - Smooth Animations: Enjoy seamless fade-in and scale-in animations on open, and fade-out and scale-out animations on close.
