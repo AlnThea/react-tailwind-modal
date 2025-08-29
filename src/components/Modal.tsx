@@ -1,11 +1,16 @@
 import React, { type FC, type ReactNode, useState, useEffect, Fragment } from 'react';
 
+export type ModalType = 'box' | 'sidebar-left' | 'sidebar-right' | 'sidebar-top' | 'sidebar-bottom';
+
+
 export interface ModalProps {
     children?: ReactNode;
     isOpen?: boolean;
     onClose: () => void;
     disableClickOutside?: boolean;
-    maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl';
+    maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl' | string;
+    type?: ModalType; // 🔁 Tambahkan ini
+    className?: string; // opsional: untuk custom tambahan
 }
 
 const Modal: FC<ModalProps> = ({
@@ -14,6 +19,8 @@ const Modal: FC<ModalProps> = ({
                                    onClose,
                                    disableClickOutside = false,
                                    maxWidth = 'xl',
+                                   type = 'box', // default ke 'box'
+                                   className = '',
                                }) => {
     const [shouldRender, setShouldRender] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
@@ -50,20 +57,87 @@ const Modal: FC<ModalProps> = ({
         }
     };
 
+    // Tentukan kelas berdasarkan `type`
+    const getModalClasses = () => {
+        switch (type) {
+            // ... case 'box' ...
+            case 'sidebar-left':
+                return `
+          h-full w-80 bg-white shadow-xl
+          transform transition-transform duration-300 ease-in-out
+          ${isAnimating ? 'translate-x-0' : '-translate-x-full'}
+        `;
+
+            case 'sidebar-right':
+                return `
+          h-full w-80 bg-white shadow-xl
+          transform transition-transform duration-300 ease-in-out
+          ${isAnimating ? 'translate-x-0' : 'translate-x-full'}
+        `;
+
+            case 'sidebar-top':
+                return `
+          w-full h-64 bg-white shadow-xl
+          transform transition-transform duration-300 ease-in-out
+          ${isAnimating ? 'translate-y-0' : '-translate-y-full'}
+        `;
+
+            case 'sidebar-bottom':
+                return `
+          w-full h-64 bg-white shadow-xl
+          transform transition-transform duration-300 ease-in-out
+          ${isAnimating ? 'translate-y-0' : 'translate-y-full'}
+        `;
+
+            default:
+                return '';
+        }
+    };
+
+    // Tentukan posisi overlay
+    const getOverlayClasses = () => {
+        switch (type) {
+            case 'box':
+                return 'flex items-center justify-center';
+            case 'sidebar-left':
+                return 'justify-start'; // ⬅️ Perbaiki ini
+            case 'sidebar-right':
+                return 'justify-end'; // ⬅️ Perbaiki ini
+            case 'sidebar-top':
+                return 'items-start'; // ⬅️ Perbaiki ini
+            case 'sidebar-bottom':
+                return 'items-end'; // ⬅️ Perbaiki ini
+            default:
+                return 'flex items-center justify-center';
+        }
+    };
+
+
     return (
         <div
             onClick={handleClose}
-            className={`fixed inset-0 z-50 bg-slate-500/75 flex items-center justify-center 
-                 transition-opacity duration-300 ease-in-out
-                 ${isAnimating ? 'opacity-100' : 'opacity-0'}`}
+            // Gabungkan kelas-kelas ini
+            className={`fixed inset-0 z-99 bg-slate-500/75 flex 
+             ${getOverlayClasses()}
+             transition-opacity duration-300 ease-in-out
+             ${isAnimating ? 'opacity-100' : 'opacity-0'}`}
         >
             <div
                 onClick={(e: React.MouseEvent) => e.stopPropagation()}
-                className={`p-6 relative bg-white mx-auto w-full rounded-2xl shadow-lg 
-                    max-w-${maxWidth} transition-all duration-300 ease-in-out
-                    ${isAnimating ? 'scale-85 opacity-100' : 'scale-95 opacity-0'}`}
+                className={`${getModalClasses()} ${className}`}
             >
-                {children}
+                {/* Close Button (opsional, bisa di-hide) */}
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 z-10"
+                >
+                    ✕
+                </button>
+
+                {/* Modal Content */}
+                <div className="p-4 h-full overflow-y-auto">
+                    {children}
+                </div>
             </div>
         </div>
     );
