@@ -1,6 +1,6 @@
 {
   "name": "@alnthea/react-tailwind-modal",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A fully animated and customizable modal component for React using Tailwind CSS v4.",
   "license": "MIT",
   "author": "AlnThea",
@@ -13,7 +13,8 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc --project tsconfig.lib.json",
+    "build": "vite build && tsc --project tsconfig.lib.json && npm run fix-dts",
+    "fix-dts": "mv dist/Modal.d.ts dist/react-tailwind-modal.d.ts || move dist\\Modal.d.ts dist\\react-tailwind-modal.d.ts",
     "lint": "eslint .",
     "preview": "vite preview"
   },
